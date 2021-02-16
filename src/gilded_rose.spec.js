@@ -21,11 +21,35 @@ describe('updating of standard items', () => {
 });
 
 describe('updating of aged brie', () => {
-  it.todo('decreases the sell_in of aged brie by 1');
+  const agedBrie = new Item('Aged Brie', 2, 0);
 
-  it.todo('increases the quality of aged brie by 1');
+  afterEach(() => {
+    // updates the quality and sell_in back to original quantities
+    agedBrie.sell_in = 2;
+    agedBrie.quality = 0;
+  });
 
-  it.todo('does not update the quality of aged brie to more than 50');
+  it('increments in quality by 1', () => {
+    updateQuality([agedBrie]);
+    expect(agedBrie.quality).toBe(1);
+  });
+
+  it('decrements the sell_in by 1', () => {
+    updateQuality([agedBrie]);
+    expect(agedBrie.sell_in).toBe(1);
+  });
+
+  it('does not increase the quality to more than 50', () => {
+    agedBrie.quality = 50;
+    updateQuality([agedBrie]);
+    expect(agedBrie.quality).toBe(50);
+  });
+
+  it('increases in quality twice as fast if sell_in is less than 0', () => {
+    agedBrie.sell_in = -1;
+    updateQuality([agedBrie]);
+    expect(agedBrie.quality).toBe(2);
+  });
 });
 
 describe('updating of backstage passes', () => {

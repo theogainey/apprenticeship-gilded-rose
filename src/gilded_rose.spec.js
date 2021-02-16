@@ -105,7 +105,22 @@ describe('updating of sulfuras', () => {
 });
 
 describe('updating of conjured items', () => {
-  it.todo('decreases the sell_in of conjured items by 1');
+  const cake = new Item('Conjured Mana Cake', 5, 10);
+  const oldCake = new Item('Conjured Mana Cake', -1, 10);
 
-  it.todo('decreases the quality of of conjured items by 2');
+  beforeAll(() => {
+    updateQuality([cake, oldCake]);
+  });
+
+  it.skip('decreases the sell_in of conjured items by 1', () => {
+    expect(cake.sell_in).toBe(4);
+  });
+
+  it.skip('decreases the quality of conjured items by 2', () => {
+    expect(cake.quality).toBe(8);
+  });
+
+  it.skip('decreases the quality of conjured items by 4', () => {
+    expect(oldCake.quality).toBe(6);
+  });
 });

@@ -65,9 +65,17 @@ describe('updating of backstage passes', () => {
 });
 
 describe('updating of sulfuras', () => {
-  it.todo('does not update sell_in of sulfuras');
+  const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
 
-  it.todo('does not update the quality of sulfuras');
+  it('does not update sell_in', () => {
+    updateQuality([sulfuras]);
+    expect(sulfuras.sell_in).toBe(0);
+  });
+
+  it('does not update quality', () => {
+    updateQuality([sulfuras]);
+    expect(sulfuras.quality).toBe(80);
+  });
 });
 
 describe('updating of conjured items', () => {

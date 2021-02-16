@@ -53,15 +53,41 @@ describe('updating of aged brie', () => {
 });
 
 describe('updating of backstage passes', () => {
-  it.todo('decreases the sell_in of backstage passes by 1');
+  const pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 10);
+  const passTenDays = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 8);
+  const passFiveDays = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 15);
+  const passMaximumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', 1, 50);
+  const passPostConcert = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50);
+  const passMinimumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 0);
 
-  it.todo('increases the quality of backstage passes by 2 if there are 10 sell_in days or less');
+  beforeAll(() => {
+    updateQuality([pass, passTenDays, passFiveDays, passMaximumQuality,
+      passPostConcert, passMinimumQuality]);
+  });
 
-  it.todo('increases the quality of backstage passes by 3 if there are 5 sell_in days or less');
+  it('decreases the sell_in of backstage passes by 1', () => {
+    expect(pass.sell_in).toBe(10);
+  });
 
-  it.todo('decreases the quality of backstage passes to 0 if there are 0 sell_in days or less');
+  it('increases the quality of backstage passes by 2 if there are 10 sell_in days or less', () => {
+    expect(passTenDays.quality).toBe(10);
+  });
 
-  it.todo('does not update the quality of backstage passes to more than 50');
+  it('increases the quality of backstage passes by 3 if there are 5 sell_in days or less', () => {
+    expect(passFiveDays.quality).toBe(18);
+  });
+
+  it('decreases the quality of backstage passes to 0 if there are 0 sell_in days or less', () => {
+    expect(passPostConcert.quality).toBe(0);
+  });
+
+  it('does not update the quality of backstage passes to more than 50', () => {
+    expect(passMaximumQuality.quality).toBe(50);
+  });
+
+  it('does not reduce the quality of backstage passes to below zero', () => {
+    expect(passMinimumQuality.quality).toBe(0);
+  });
 });
 
 describe('updating of sulfuras', () => {

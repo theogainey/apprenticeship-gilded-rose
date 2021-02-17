@@ -1,6 +1,6 @@
 import { Item, updateQuality } from './gilded_rose';
 
-describe('updating of standard items', () => {
+describe.only('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
     const standardItem = new Item('Hand of Thor', 10, 10);
     const result = updateQuality([standardItem]);

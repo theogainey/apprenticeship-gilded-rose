@@ -21,8 +21,9 @@ const items = [
 
 updateQuality(items);
 */
-export function updateQuality(items) {
+export function updateQuality(itemsArray) {
   let result = []
+  items = [...itemsArray]
   for (var i = 0; i < items.length; i++) {
     let {name, quality, sell_in} = items[i]
     if (name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert') {

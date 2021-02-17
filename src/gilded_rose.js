@@ -22,8 +22,9 @@ const items = [
 updateQuality(items);
 */
 export function updateQuality(items) {
+  let result = []
   for (var i = 0; i < items.length; i++) {
-    const {name, quality, sell_in} = items[i]
+    let {name, quality, sell_in} = items[i]
     if (name != 'Aged Brie' && name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (quality > 0) {
         if (name != 'Sulfuras, Hand of Ragnaros') {
@@ -67,7 +68,8 @@ export function updateQuality(items) {
         }
       }
     }
-    return {name, quality, sell_in}
+    result.push({name, quality, sell_in})
   }
+  return result
 }
 

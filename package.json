@@ -4,7 +4,8 @@
   "description": "A small inn with a prime location and some bad code.",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
     "lint": "eslint ./ --ignore-path .gitignore"
   },
   "repository": {

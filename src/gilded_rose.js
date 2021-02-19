@@ -26,12 +26,21 @@ export function updateQuality(items) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
       break;
     }
+
+    if (items[i].name === 'Aged Brie' && items[i].quality < 50) {
+        items[i].quality = items[i].quality + 1
+      if (items[i].sell_in < 0) {
+        items[i].quality = items[i].quality + 1
+      }
+    }
+
     if (items[i].name != 'Aged Brie'
     && items[i].name != 'Backstage passes to a TAFKAL80ETC concert'
     && items[i].quality > 0) {
       items[i].quality = items[i].quality - 1
     } else {
-      if (items[i].quality < 50) {
+      if (items[i].quality < 50 && items[i].name !== 'Aged Brie') {
+        // handles bs passes
         items[i].quality = items[i].quality + 1
         if (items[i].name == 'Backstage passes to a TAFKAL80ETC concert'
         && items[i].sell_in < 11
@@ -55,11 +64,7 @@ export function updateQuality(items) {
         } else {
           items[i].quality = items[i].quality - items[i].quality
         }
-      } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
-        }
-      }
+      } 
     }
   }
 }

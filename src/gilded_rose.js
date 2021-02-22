@@ -23,6 +23,18 @@ updateQuality(items);
 */
 
 function mutateItemQuality(currentQuality, amount = 1) {
+  /**
+   * checks if adding the two values would cancel them out and returns 0 before adding
+   * this sets the quality of backstage passes to 0 without needing to check if quality is 50+
+   * otherwise ('Backstage passes to a TAFKAL80ETC concert', -1, 50) is not handled properly
+   */
+  if (-(currentQuality) === amount) {
+    return 0;
+  }
+    // does not allow quality to be increased over 50
+  if (currentQuality >= 50) {
+    return currentQuality;
+  }
   // quality can increase or decrease, if no amount is specified quality will increase by 1
   return currentQuality + amount;
 }
@@ -37,16 +49,13 @@ export function updateQuality(items) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
       break;
     } else if (items[i].name === 'Aged Brie') {
-      if (items[i].quality < 50) {
         // items[i].quality = items[i].quality + 1
         items[i].quality = mutateItemQuality(items[i].quality);
         if (items[i].sell_in < 0) {
           // items[i].quality = items[i].quality + 1
           items[i].quality = mutateItemQuality(items[i].quality);
-        }
       }
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
-      if (items[i].quality < 50) {
         items[i].quality = mutateItemQuality(items[i].quality);
         // items[i].quality = items[i].quality + 1
         if (items[i].sell_in < 11) {
@@ -57,7 +66,6 @@ export function updateQuality(items) {
           // items[i].quality = items[i].quality + 1
           items[i].quality = mutateItemQuality(items[i].quality);
         }
-      }
       if (items[i].sell_in <= 0) {
         // items[i].quality = items[i].quality - items[i].quality
         items[i].quality = mutateItemQuality(items[i].quality, -(items[i].quality));

@@ -27,14 +27,16 @@ export function updateQuality(items) {
       break;
     }
 
-    if (items[i].name === 'Aged Brie' && items[i].quality < 50) {
+    else if (items[i].name === 'Aged Brie') {
+      if (items[i].quality < 50) {
         items[i].quality = items[i].quality + 1
-      if (items[i].sell_in < 0) {
-        items[i].quality = items[i].quality + 1
+        if (items[i].sell_in < 0) {
+          items[i].quality = items[i].quality + 1
+        }
       }
     }
 
-    if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
+    else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
       if (items[i].quality < 50) {
         items[i].quality = items[i].quality + 1
         if (items[i].sell_in < 11) {

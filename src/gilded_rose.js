@@ -49,26 +49,26 @@ export function updateQuality(items) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
       break;
     } else if (items[i].name === 'Aged Brie') {
-        items[i].quality = mutateItemQuality(items[i].quality);
         if (items[i].sell_in < 0) {
+          items[i].quality = mutateItemQuality(items[i].quality, 2);
+        } else {
           items[i].quality = mutateItemQuality(items[i].quality);
-      }
+        }
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
-        items[i].quality = mutateItemQuality(items[i].quality);
-        if (items[i].sell_in < 11) {
-        items[i].quality = mutateItemQuality(items[i].quality);
-        }
-        if (items[i].sell_in < 6) {
-          items[i].quality = mutateItemQuality(items[i].quality);
-        }
       if (items[i].sell_in <= 0) {
         items[i].quality = mutateItemQuality(items[i].quality, -(items[i].quality));
-
+      } else if (items[i].sell_in < 6) {
+        items[i].quality = mutateItemQuality(items[i].quality, 3);
+      } else if (items[i].sell_in < 11) {
+        items[i].quality = mutateItemQuality(items[i].quality, 2);
+      } else {
+        items[i].quality = mutateItemQuality(items[i].quality);
       }
     } else {
-      items[i].quality = mutateItemQuality(items[i].quality, -1);
       if (items[i].sell_in <= 0) {
-        items[i].quality = mutateItemQuality(items[i].quality, -1);
+        items[i].quality = mutateItemQuality(items[i].quality, -2)
+      } else {
+        items[i].quality = mutateItemQuality(items[i].quality, -1)
       }
     }
     // handles decrementing of sell in for all items except sulfuras

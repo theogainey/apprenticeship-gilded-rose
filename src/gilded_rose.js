@@ -23,17 +23,18 @@ updateQuality(items);
 */
 
 function mutateItemQuality(currentQuality, amount = 1) {
-  /**
-   * checks if adding the two values would cancel them out and returns 0 before adding
-   * this sets the quality of backstage passes to 0 without needing to check if quality is 50+
-   * otherwise ('Backstage passes to a TAFKAL80ETC concert', -1, 50) is not handled properly
-   */
-  if (-(currentQuality) === amount) {
-    return 0;
-  }
-    // does not allow quality to be increased over 50
   if (currentQuality >= 50) {
-    return currentQuality;
+    // the rules state that the quality should never be more than 50
+    if (currentQuality + amount === 0) {
+      /**
+       * The only time we will change the quality when it's 50 or more is when 
+       * we want to change backstage passes' quality to 0 (if sellin is less than 0).
+       * example: new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50)
+       */
+      return 0;
+    } else {
+      return currentQuality;
+    }
   }
   // quality can increase or decrease, if no amount is specified quality will increase by 1
   return currentQuality + amount;
@@ -49,26 +50,26 @@ export function updateQuality(items) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
       break;
     } else if (items[i].name === 'Aged Brie') {
-        items[i].quality = mutateItemQuality(items[i].quality);
         if (items[i].sell_in < 0) {
+          items[i].quality = mutateItemQuality(items[i].quality, 2);
+        } else {
           items[i].quality = mutateItemQuality(items[i].quality);
-      }
+        }
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
-        items[i].quality = mutateItemQuality(items[i].quality);
-        if (items[i].sell_in < 11) {
-        items[i].quality = mutateItemQuality(items[i].quality);
-        }
-        if (items[i].sell_in < 6) {
-          items[i].quality = mutateItemQuality(items[i].quality);
-        }
       if (items[i].sell_in <= 0) {
         items[i].quality = mutateItemQuality(items[i].quality, -(items[i].quality));
-
+      } else if (items[i].sell_in < 6) {
+        items[i].quality = mutateItemQuality(items[i].quality, 3);
+      } else if (items[i].sell_in < 11) {
+        items[i].quality = mutateItemQuality(items[i].quality, 2);
+      } else {
+        items[i].quality = mutateItemQuality(items[i].quality);
       }
     } else {
-      items[i].quality = mutateItemQuality(items[i].quality, -1);
       if (items[i].sell_in <= 0) {
-        items[i].quality = mutateItemQuality(items[i].quality, -1);
+        items[i].quality = mutateItemQuality(items[i].quality, -2)
+      } else {
+        items[i].quality = mutateItemQuality(items[i].quality, -1)
       }
     }
     // handles decrementing of sell in for all items except sulfuras

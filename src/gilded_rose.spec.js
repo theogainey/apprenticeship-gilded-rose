@@ -1,6 +1,6 @@
-import {updateQuality } from './gilded_rose';
-import {Item} from './items/Item';
-import {agedBrieHandler} from './items/AgedBrie'
+import { updateQuality } from './gilded_rose';
+import { Item } from './items/Item';
+import { agedBrieHandler } from './items/AgedBrie';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {

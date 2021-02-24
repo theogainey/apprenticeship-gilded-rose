@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 
 class Item {
   constructor(name, sell_in, quality, handler) {
     this.name = name;
-    this.sell_in = sell_in
+    this.sell_in = sell_in;
     this.quality = quality;
     this.handleItem = handler;
   }

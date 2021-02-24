@@ -6,4 +6,4 @@ function agedBrieHandler() {
   }
 }
 
-module.exports = {agedBrieHandler}
+module.exports = { agedBrieHandler };

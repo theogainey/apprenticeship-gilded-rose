@@ -1,4 +1,6 @@
-import { Item, updateQuality } from './gilded_rose';
+import {updateQuality } from './gilded_rose';
+import {Item} from './items/Item';
+import {agedBrieHandler} from './items/AgedBrie'
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
@@ -21,7 +23,7 @@ describe('updating of standard items', () => {
 });
 
 describe('updating of aged brie', () => {
-  const agedBrie = new Item('Aged Brie', 2, 0);
+  const agedBrie = new Item('Aged Brie', 2, 0, agedBrieHandler);
 
   afterEach(() => {
     // updates the quality and sell_in back to original quantities

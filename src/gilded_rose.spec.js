@@ -3,22 +3,23 @@ import { Item } from './items/Item';
 import { agedBrieHandler } from './items/AgedBrie';
 import { backstagePassesHandler } from './items/Backstage';
 import { sulfurasHandler } from './items/Sulfuras';
+import { standardItemHandler } from './items/StandardItem';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
-    const standardItem = new Item('Hand of Thor', 10, 10);
+    const standardItem = new Item('Hand of Thor', 10, 10, standardItemHandler);
     updateQuality([standardItem]);
     expect(standardItem.sell_in).toBe(9);
   });
 
   it('decreases the quality of a standard item by 1', () => {
-    const standardItem = new Item('Hand of Thor', 10, 30);
+    const standardItem = new Item('Hand of Thor', 10, 30, standardItemHandler);
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(29);
   });
 
   it('decreases the quality of a standard item by 2 if the sell_in is less than 0', () => {
-    const standardItem = new Item('Hand of Thor', 0, 20);
+    const standardItem = new Item('Hand of Thor', 0, 20, standardItemHandler);
     updateQuality([standardItem]);
     expect(standardItem.quality).toBe(18);
   });

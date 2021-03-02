@@ -1,6 +1,7 @@
 import { updateQuality } from './gilded_rose';
 import { Item } from './items/Item';
 import { agedBrieHandler } from './items/AgedBrie';
+import { backstagePassesHandler } from './items/Backstage';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
@@ -55,12 +56,12 @@ describe('updating of aged brie', () => {
 });
 
 describe('updating of backstage passes', () => {
-  const pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 10);
-  const passTenDays = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 8);
-  const passFiveDays = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 15);
-  const passMaximumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', 1, 50);
-  const passPostConcert = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50);
-  const passMinimumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 0);
+  const pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 10, backstagePassesHandler);
+  const passTenDays = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 8, backstagePassesHandler);
+  const passFiveDays = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 15, backstagePassesHandler);
+  const passMaximumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', 1, 50, backstagePassesHandler);
+  const passPostConcert = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 50, backstagePassesHandler);
+  const passMinimumQuality = new Item('Backstage passes to a TAFKAL80ETC concert', -1, 0, backstagePassesHandler);
 
   beforeAll(() => {
     updateQuality([pass, passTenDays, passFiveDays, passMaximumQuality,

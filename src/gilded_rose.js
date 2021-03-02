@@ -1,7 +1,4 @@
 //TARR Made the GOBLIN Eat US! ::sadface::
-const {Item} = require('./items/Item')
-const {agedBrieHandler} = require('./items/AgedBrie')
-
 
 function mutateItemQuality(currentQuality, amount = 1) {
   /**

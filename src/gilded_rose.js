@@ -25,7 +25,7 @@ function mutateItemSellIn(currentSellIn, amount = 1) {
 export function updateQuality(items) {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
-      items[i].handleItem()
+      break; 
     } else if (items[i].name === 'Aged Brie') {
       items[i].handleItem()
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {

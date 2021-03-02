@@ -31,11 +31,7 @@ export function updateQuality(items) {
     } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
       items[i].handleItem()
     } else {
-      if (items[i].sell_in <= 0) {
-        items[i].quality = mutateItemQuality(items[i].quality, -2)
-      } else {
-        items[i].quality = mutateItemQuality(items[i].quality, -1)
-      }
+      items[i].handleItem()
     }
     // handles decrementing of sell in for all items except sulfuras
     items[i].sell_in = mutateItemSellIn(items[i].sell_in);

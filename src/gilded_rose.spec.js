@@ -2,6 +2,7 @@ import { updateQuality } from './gilded_rose';
 import { Item } from './items/Item';
 import { agedBrieHandler } from './items/AgedBrie';
 import { backstagePassesHandler } from './items/Backstage';
+import { sulfurasHandler } from './items/Sulfuras';
 
 describe('updating of standard items', () => {
   it('decreases the sell_in of a standard item by 1', () => {
@@ -94,7 +95,7 @@ describe('updating of backstage passes', () => {
 });
 
 describe('updating of sulfuras', () => {
-  const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
+  const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80, sulfurasHandler);
 
   it('does not update sell_in', () => {
     updateQuality([sulfuras]);

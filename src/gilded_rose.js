@@ -23,17 +23,13 @@ function mutateItemSellIn(currentSellIn, amount = 1) {
 }
 
 export function updateQuality(items) {
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].name === 'Sulfuras, Hand of Ragnaros') {
-      break; 
-    } else if (items[i].name === 'Aged Brie') {
-      items[i].handleItem()
-    } else if (items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
-      items[i].handleItem()
-    } else {
-      items[i].handleItem()
-    }
-    // handles decrementing of sell in for all items except sulfuras
-    items[i].sell_in = mutateItemSellIn(items[i].sell_in);
+items.forEach((item) => {
+    item.handleItem()
+
+  // handles decrementing of sell in for all items except sulfuras
+  if(item.name !== 'Sulfuras, Hand of Ragnaros'){
+    item.sell_in = mutateItemSellIn(item.sell_in);
   }
+})
+
 }

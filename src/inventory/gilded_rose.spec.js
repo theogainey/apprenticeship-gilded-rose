@@ -1,91 +1,103 @@
 import { Item, updateQuality } from './gilded_rose';
 
-describe('`updateQuality`', () => {
-  it('deprecates the sell in by one for +5 Dexterity Vest	', () => {
-    const standardItem = new Item('+5 Dexterity Vest	 Shoe', 10, 10);
+describe('updateQuality', () => {
+  it('deprecates `sell_in` by 1 for +5 Dexterity Vest', () => {
+    const standardItem = new Item('+5 Dexterity Vest', 10, 10);
     updateQuality([standardItem]);
-    expect(standardItem.sell_in).toBe(9);
     expect(standardItem.quality).toBe(9);
   });
 
-  it('deprecates the sell in by one for a +5 Dexterity Vest	 when sell in less than zero', () => {
-    const standardItem = new Item('+5 Dexterity Vest	', -1, 10);
+  it('deprecates `quality` by 1 for +5 Dexterity Vest', () => {
+    const standardItem = new Item('+5 Dexterity Vest', 10, 10);
     updateQuality([standardItem]);
-    expect(standardItem.sell_in).toBe(-2);
+    expect(standardItem.quality).toBe(9);
+  });
+
+  it('deprecates `quality` by 2 for +5 Dexterity Vest when `sell_in` is less than 0', () => {
+    const standardItem = new Item('+5 Dexterity Vest', -1, 10);
+    updateQuality([standardItem]);
     expect(standardItem.quality).toBe(8);
   });
 
-  it('deprecates the sell in by one for +5 Dexterity Vest	 when quailty zero', () => {
-    const standardItem = new Item('+5 Dexterity Vest	', 10, 0);
+  it('deprecates `sell_in` by 1 for +5 Dexterity Vest	when `quailty` is 0', () => {
+    const standardItem = new Item('+5 Dexterity Vest', 10, 0);
     updateQuality([standardItem]);
-    expect(standardItem.quality).toBe(0);
-    expect(standardItem.sell_in).toBeGreaterThanOrEqual(0);
+    expect(standardItem.sell_in).toBe(9);
   });
 
-  it('deprecates the sell in by one for Aged Brie', () => {
+  it('does not deprecate `quality` for +5 Dexterity Vest when `quailty` is 0', () => {
+    const standardItem = new Item('+5 Dexterity Vest', 10, 0);
+    updateQuality([standardItem]);
+    expect(standardItem.quality).toBe(0);
+  });
+
+  it('deprecates `sell_in` by 1 for Aged Brie', () => {
     const agedBrie = new Item('Aged Brie', 2, 0);
     updateQuality([agedBrie]);
     expect(agedBrie.sell_in).toBe(1);
-    expect(agedBrie.quality).toBe(1);
   });
 
-  it('deprecates the sell in by one for Aged Brie sell in 0', () => {
-    const agedBrie = new Item('Aged Brie', 0, 0);
+  it('increases `quailty` by 1 for Aged Brie', () => {
+    const agedBrie = new Item('Aged Brie', 2, 0);
     updateQuality([agedBrie]);
-    expect(agedBrie.sell_in).toBe(-1);
+    expect(agedBrie.sell_in).toBe(1);
+  });
+
+  it('increases `quailty` by 2 for Aged Brie when `sell_in` is less than 0' , () => {
+    const agedBrie = new Item('Aged Brie', -1, 0);
+    updateQuality([agedBrie]);
     expect(agedBrie.quality).toBe(2);
   });
 
-
-  it('item quailty cannot be over 50', () => {
+  it('will not increase `quailty` to greater than 50', () => {
     const agedBrie = new Item('Aged Brie', 0, 50);
     updateQuality([agedBrie]);
     expect(agedBrie.quality).toBe(50);
   });
 
   
-  it('Sulfuras sell in and quality cannot be deprecated', () => {
+  it('keeps Sulfuras `sell_in` and `quality` constant', () => {
     const sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
     updateQuality([sulfuras]);
     expect(sulfuras.quality).toBe(80);
     expect(sulfuras.sell_in).toBe(0);
   });
 
-  it('deprecates the sell in by one for Backstage passes', () => {
+  it('deprecates `sell_in` by 1 for Backstage passes', () => {
     const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20);
     updateQuality([backstagePasses]);
-    expect(backstagePasses.quality).toBe(21);
     expect(backstagePasses.sell_in).toBe(14);
   });
 
-  it('deprecates the sell in by one for Backstage passes, 10 days left', () => {
-    const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 20);
+  it('increases `quality` by 1 for Backstage passes when `sell_in` is greater than 10', () => {
+    const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20);
+    updateQuality([backstagePasses]);
+    expect(backstagePasses.quality).toBe(21);
+  });
+
+
+  it('increases `quality` by 2 for Backstage passes when `sell_in` is less than 10', () => {
+    const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 9, 20);
     updateQuality([backstagePasses]);
     expect(backstagePasses.quality).toBe(22);
-    expect(backstagePasses.sell_in).toBe(9);
   });
 
-  it('deprecates the sell in by one for Backstage passes, 5 days left', () => {
-    const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 20);
+  it('increases `quality` by 3 for Backstage passes when `sell_in` is less than 5', () => {
+    const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 4, 20);
     updateQuality([backstagePasses]);
     expect(backstagePasses.quality).toBe(23);
-    expect(backstagePasses.sell_in).toBe(4);
   });
 
-  it('deprecates the sell in by one for Backstage passes, 0 days left', () => {
+  it('deprecates `quality` to 0 for Backstage passes, when `sell_in` is 0', () => {
     const backstagePasses = new Item('Backstage passes to a TAFKAL80ETC concert', 0, 20);
     updateQuality([backstagePasses]);
     expect(backstagePasses.quality).toBe(0);
-    expect(backstagePasses.sell_in).toBe(-1);
   });
 
-  it('deprecates the sell in by one for "Conjured" item', () => {
+  it('deprecates `quality` by 2 for "Conjured" item', () => {
     const conjuredItem = new Item('Conjured Mana Cake', 3, 6);
     updateQuality([conjuredItem]);
     expect(conjuredItem.quality).toBe(4);
-    expect(conjuredItem.sell_in).toBe(2);
   });
-
-
 });
 

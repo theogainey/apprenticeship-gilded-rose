@@ -26,8 +26,16 @@ describe('`updateQuality`', () => {
     const agedBrie = new Item('Aged Brie', 2, 0);
     updateQuality([agedBrie]);
     expect(agedBrie.sell_in).toBe(1);
-    expect(agedBrie.quality).toBeGreaterThanOrEqual(0);
+    expect(agedBrie.quality).toBe(1);
   });
+
+  it('deprecates the sell in by one for Aged Brie sell in 0', () => {
+    const agedBrie = new Item('Aged Brie', 0, 0);
+    updateQuality([agedBrie]);
+    expect(agedBrie.sell_in).toBe(-1);
+    expect(agedBrie.quality).toBe(2);
+  });
+
 
   it('item quailty cannot be over 50', () => {
     const agedBrie = new Item('Aged Brie', 0, 50);

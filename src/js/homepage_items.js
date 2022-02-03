@@ -27,11 +27,12 @@ const renderItemsOnHomepage = (items) => {
 };
 
 const bindEventListenToUpdateButton = (items) => {
+  let currentItems = items;
   const updateButton = document.getElementById('update-items-button');
   updateButton.addEventListener('click', (e) => {
     e.preventDefault();
-    updateQuality(items);
-    renderItemsOnHomepage(items);
+    currentItems = updateQuality(currentItems);
+    renderItemsOnHomepage(currentItems);
   });
 };
 

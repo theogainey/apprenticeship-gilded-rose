@@ -36,10 +36,20 @@ const bindEventListenToUpdateButton = (items) => {
   });
 };
 
+const bindEventListenToResetButton = (items) => {
+  const resetButton = document.getElementById('reset-items-button');
+  resetButton.addEventListener('click', (e)=>{
+    e.preventDefault();
+    renderItemsOnHomepage(items);
+    bindEventListenToUpdateButton(items);
+  })
+}
+
 const showItemsOnHomePage = () => {
   const items = getNewItems();
   renderItemsOnHomepage(items);
   bindEventListenToUpdateButton(items);
+  bindEventListenToResetButton(items);
 };
 
 showItemsOnHomePage();

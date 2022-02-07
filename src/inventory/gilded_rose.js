@@ -76,7 +76,7 @@ export function updateQuality(items){
         qualityUpdateFactor = -1;
         break;
     }
-    return {...e, sell_in: e.sell_in -1, quality: newQuality(scaler, e.sell_in -1, e.quality)};
+    return {...e, sell_in: e.sell_in -1, quality: newQuality(qualityUpdateFactor, e.sell_in -1, e.quality)};
   })
 }
 

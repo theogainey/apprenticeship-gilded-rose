@@ -35,48 +35,48 @@ const enforceQualityBounds=(quality)=>{
   return quality;
 }
 
-
-const updateBrieQuality = (sell_in, quality) => {
-  const newQuality = sell_in<0? quality +2 : quality +1;
-  return enforceQualityBounds (newQuality);
+const newQuality = (qualityUpdateFactor, sell_in, quality)=>{
+  const newQuality = sell_in<0? quality + 2*qualityUpdateFactor : quality + qualityUpdateFactor;
+  return enforceQualityBounds(newQuality)
 }
 
 const updateBackstagePassQuality = (sell_in, quality) => {
+  let newQuality;
   switch (true) {
     case sell_in <0:
       return 0;
     case sell_in <5:
-      return enforceQualityBounds(quality +3)
+      newQuality = quality +3
+      break;
     case sell_in<10:
-      return enforceQualityBounds(quality +2)
+      newQuality = quality +2
+      break;
     default:
-      return enforceQualityBounds(quality +1)
+      newQuality = quality +1
+      break; 
   }
-}
-
-const updateConjuredQuality = (sell_in, quality) => {
-  let newQuality = sell_in<0? quality -4 : quality -2;
-  return enforceQualityBounds (newQuality);
-}
-
-const updateStandardQuality = (sell_in, quailty) => {
-  let newQuality = sell_in<0? quailty -2 : quailty -1;
-  return enforceQualityBounds (newQuality);
+  return enforceQualityBounds(newQuality);
 }
 
 export function updateQuality(items){
   return items.map((e)=>{
+    let qualityUpdateFactor;
     switch(e.name){
       case 'Aged Brie':
-        return {...e, sell_in: e.sell_in -1, quality: updateBrieQuality(e.sell_in -1, e.quality)};
+        qualityUpdateFactor =1;
+        break;
       case 'Sulfuras, Hand of Ragnaros':
         return {...e};
       case 'Backstage passes to a TAFKAL80ETC concert':
         return {...e, sell_in: e.sell_in -1, quality: updateBackstagePassQuality(e.sell_in -1, e.quality)};
       case 'Conjured Mana Cake':
-        return {...e, sell_in: e.sell_in -1, quality: updateConjuredQuality(e.sell_in -1, e.quality)};
+        qualityUpdateFactor = -2;
+        break;
       default:
-        return {...e, sell_in: e.sell_in -1, quality: updateStandardQuality(e.sell_in -1, e.quality)};
+        qualityUpdateFactor = -1;
+        break;
     }
+    return {...e, sell_in: e.sell_in -1, quality: newQuality(qualityUpdateFactor, e.sell_in -1, e.quality)};
   })
 }
+

@@ -26,7 +26,9 @@ const renderItemsOnHomepage = (items) => {
   });
 };
 
-const bindEventListenToUpdateButton = (items) => {
+const showItemsOnHomePage = () => {
+  const items = getNewItems();
+  renderItemsOnHomepage(items);
   let currentItems = items;
   const updateButton = document.getElementById('update-items-button');
   updateButton.addEventListener('click', (e) => {
@@ -34,22 +36,12 @@ const bindEventListenToUpdateButton = (items) => {
     currentItems = updateQuality(currentItems);
     renderItemsOnHomepage(currentItems);
   });
-};
-
-const bindEventListenToResetButton = (items) => {
   const resetButton = document.getElementById('reset-items-button');
-  resetButton.addEventListener('click', (e)=>{
+  resetButton.addEventListener('click', (e) => {
     e.preventDefault();
-    renderItemsOnHomepage(items);
-    bindEventListenToUpdateButton(items);
-  })
-}
-
-const showItemsOnHomePage = () => {
-  const items = getNewItems();
-  renderItemsOnHomepage(items);
-  bindEventListenToUpdateButton(items);
-  bindEventListenToResetButton(items);
+    currentItems = items;
+    renderItemsOnHomepage(currentItems);
+  });
 };
 
 showItemsOnHomePage();
